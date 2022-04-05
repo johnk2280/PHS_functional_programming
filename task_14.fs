@@ -41,7 +41,7 @@ let rec delete = function
 let rec minus = function
     | (xs1, []) -> xs1
     | ([], xs2) -> []
-    |
+    | (xs1, head :: tail) -> minus (delete (head, xs1), tail)
 
 // 40.3.1
 let rec smallest = ...
@@ -53,3 +53,8 @@ let rec sort = ...
 
 // 40.4
 let rec revrev = ...
+
+let a = [1; 2; 3; 4; 4; 5; 6; 7; 7]
+let b = [1; 2; 3; 7; 7]
+minus (a, b)
+delete (4, a)
