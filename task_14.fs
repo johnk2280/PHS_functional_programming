@@ -34,8 +34,7 @@ let rec plus = function
 let rec delete = function
     | (n, []) -> []
     | (n, head :: tail) when n = head -> tail
-    | (n, head :: tail) when n < head -> head :: tail
-    | (n, head :: tail) when n > head -> head :: delete (n, tail)
+    | (n, head :: tail) when n <> head -> head :: delete (n, tail)
 
 // 40.2.5
 let rec minus = function
@@ -44,17 +43,25 @@ let rec minus = function
     | (xs1, head :: tail) -> minus (delete (head, xs1), tail)
 
 // 40.3.1
-let rec smallest = ...
+let rec get_smallest = function
+    | ([], current) -> Some current
+    | (head :: tail, current) when head < current -> get_smallest (tail, head)
+    | (head :: tail, current) when head >= current -> get_smallest (tail, current)
 
-
+let rec smallest = function
+    | head :: tail -> get_smallest (tail, head)
 
 // 40.3.3
-let rec sort = ...
+let rec sort = function
+    | [] -> []
+    | xs -> (smallest xs).Value::sort (delete ((smallest xs).Value, xs))
 
 // 40.4
-let rec revrev = ...
+let rec revrev = fun xs ->
+    let rec rev xss = match xss with
+    |   [] -> []
+    |   head::tail -> (rev tail)@[head]
 
-let a = [1; 2; 3; 4; 4; 5; 6; 7; 7]
-let b = [1; 2; 3; 7; 7]
-minus (a, b)
-delete (4, a)
+    match xs with
+    |   [] -> []
+    |   head::tail -> (revrev tail)@[rev head]
