@@ -7,9 +7,12 @@ let rec fibo1 n n1 n2 =
 // fibo1 6 5 3
 
 // 48.4.2
-let rec fibo2 n c =
-    if n < 1 then c 0
-    else fibo2 (n - 1) (fun x -> c x) + fibo2 (n - 2) (fun x -> c x)
+let rec fibo2 c n =
+    if n = 0 then c 0
+    elif n = 1 then c 1
+    else fibo2 (fun x -> c x) (n - 1) + fibo2 (fun x -> c x) (n - 2)
+
+// fibo2 id 6
 
 
 
