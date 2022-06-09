@@ -24,6 +24,7 @@ let rec bigList n k =
 
     big_list n []
 
+
 let a = bigList 230000 id
 
 // List.length a
@@ -43,3 +44,6 @@ let a = bigList 230000 id
 // let rec bigList n k =
 //   if n = 0 then k []
 //   else bigList (n - 1) (fun res -> k(1::res))
+=======
+// bigList 230000 id
+
